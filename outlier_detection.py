@@ -9,9 +9,6 @@ import pickle
 from sklearn.pipeline import make_pipeline
 from sklearn.ensemble import IsolationForest
 
-# get rid of hard-coding, make a function that takes dataset, model, etc.
-# possibly add visualization for outliers
-
 
 # grab pickle file
 data = pickle.load(open('redis_vector_dump.pkl', 'rb'))
@@ -26,26 +23,22 @@ df = pd.DataFrame.from_dict(data, orient='index')
 model = IsolationForest(n_estimators = 10, random_state=1)
 
 
-# can try making a pipeline later? 
-
-
-
-# run pickle dataset through it
+# fit the model on the data in pandas df format
 model.fit(df)
 
 
-# try to see if I can do a "predict"
+# output predictions from the model on whether each row is an outlier or not
 predictions = model.predict(df)
 
-# turn predictions into a DF to see the output
+# turn predictions into a pandas DF to see the output
 pred_df = pd.DataFrame(predictions)
 
-# print statements on how many outliers were detected
+# print statements on % outliers detected
 print(f"The model predicted the following percent of inputs as outliers. 1 = not outlier, -1 = outlier:")
 print(pred_df.value_counts(normalize=True))
 
 
-# add the prediction output as a new column into the dataset
+# add the prediction output as a new column into the df
 df['output'] = predictions
 
 
@@ -53,12 +46,12 @@ df['output'] = predictions
 df_outliers_removed = df[df['output'] == 1]
 print("The outliers have been removed from the dataset.")
 
-#change df back to dict
+#change pandas df back to dict
 output_dict = df_outliers_removed.to_dict(orient='index')
 print(f"The dataset now has {len(output_dict)} records.")
 
 # output new dict to new pickle file 
-## had to look this up. Got answer here: https://www.adamsmith.haus/python/answers/how-to-save-a-dictionary-to-a-file-with-pickle-in-python
+## had to look this up: https://www.adamsmith.haus/python/answers/how-to-save-a-dictionary-to-a-file-with-pickle-in-python
 
 file_to_write = open("output_dict.pkl", "wb")
 pickle.dump(output_dict, file_to_write)
