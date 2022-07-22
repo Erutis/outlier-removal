@@ -8,3 +8,9 @@ Ways to improve:
 
 	- LEARN DICTS/NP ARRAYS BETTER: I defaulted to pandas dataframes because that's what was more comfortable. I'd like to learn how to use np arrays better just to avoid that extra step of converting to/from dfs. 
     - ADD VISUALIZATIONS: When determining outliers, it would be useful to see a visualization of the data to compare it to the results. 
+
+
+Team feedback: 
+    - IsolationForest should have a number of partitions attribute that you can use to plot performance
+    - Taking the norm data from the 512 features should create an easy way to plot data points as well. 
+    - Definitely should be using OOP and creating small functions that a team member can easily use. 
