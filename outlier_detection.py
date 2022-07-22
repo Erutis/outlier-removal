@@ -6,12 +6,11 @@ import pandas as pd
 import numpy as np
 import pickle
 
-
 from sklearn.pipeline import make_pipeline
 from sklearn.ensemble import IsolationForest
 
-
-# set a random state? 
+# get rid of hard-coding, make a function that takes dataset, model, etc.
+# possibly add visualization for outliers
 
 
 # grab pickle file
@@ -24,11 +23,10 @@ df = pd.DataFrame.from_dict(data, orient='index')
 
 
 # set up outlier detection algorithm (in pipeline)
-model = IsolationForest(n_estimators = 10)
+model = IsolationForest(n_estimators = 10, random_state=1)
 
 
-
-# can try making a pipeline later
+# can try making a pipeline later? 
 
 
 
@@ -43,19 +41,25 @@ predictions = model.predict(df)
 pred_df = pd.DataFrame(predictions)
 
 # print statements on how many outliers were detected
-print(f"The model predicted the following outliers:")
+print(f"The model predicted the following percent of inputs as outliers. 1 = not outlier, -1 = outlier:")
 print(pred_df.value_counts(normalize=True))
 
 
 # add the prediction output as a new column into the dataset
-
+df['output'] = predictions
 
 
 # filter out the -1 (outliers) from the dataset
+df_outliers_removed = df[df['output'] == 1]
+print("The outliers have been removed from the dataset.")
+
+#change df back to dict
+output_dict = df_outliers_removed.to_dict(orient='index')
 
 
-# create new dataset without outliers, possibly if statement
+# output new dict to new pickle file 
+## had to look this up. Got answer here: https://www.adamsmith.haus/python/answers/how-to-save-a-dictionary-to-a-file-with-pickle-in-python
 
-
-
-# output new dataset to new pickle file
+file_to_write = open("output_dict.pkl", "wb")
+pickle.dump(output_dict, file_to_write)
+print("This script has completed without error. Please check folder for new output as pickle file.")
