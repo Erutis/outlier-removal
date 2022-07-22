@@ -15,7 +15,7 @@ from sklearn.ensemble import IsolationForest
 
 # grab pickle file
 data = pickle.load(open('redis_vector_dump.pkl', 'rb'))
-print(f"The pickle file is type {type(data)}.")
+print(f"The pickle file is type {type(data)} and has {len(data)} records.")
 
 
 # explore pickle file and make it into pandas df to easily feed into the IsolationForest
@@ -55,7 +55,7 @@ print("The outliers have been removed from the dataset.")
 
 #change df back to dict
 output_dict = df_outliers_removed.to_dict(orient='index')
-
+print(f"The dataset now has {len(output_dict)} records.")
 
 # output new dict to new pickle file 
 ## had to look this up. Got answer here: https://www.adamsmith.haus/python/answers/how-to-save-a-dictionary-to-a-file-with-pickle-in-python
