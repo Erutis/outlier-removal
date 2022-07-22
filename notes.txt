@@ -1,1 +1,9 @@
-Test
+Ways to improve:
+
+	- MAKE FUNCTIONS & CLASSES: Definitely need to use a function here instead of line-by-line for customization.
+		○ It would be cool to be able to import whatever model a user would want to try. 
+		○ But I don't know how to make that work with the imports. Importing everything seems like a bad idea. 
+
+	- FINETUNE MODEL: For Isolation Forest, I didn't even try any of the parameters, since I'm flying blind on whether it's doing a good job of finding outliers or not. It has some params I'd be interested in messing with like contamination. 
+
+	- LEARN DICTS/NP ARRAYS BETTER: I defaulted to pandas dataframes because that's what was more comfortable. I'd like to learn how to use np arrays better just to avoid that extra step of converting to/from dfs. 
